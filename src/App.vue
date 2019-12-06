@@ -7,6 +7,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+const axios = require('axios');
 
 export default {
   name: 'app',
@@ -15,7 +16,11 @@ export default {
   },
 
   mounted() {
-    alert('hello world');
+    axios.get('google.com').then(function() {
+      alert('hello again');
+    }).catch(function() {
+      alert('not hello');
+    });
   }
 }
 </script>
