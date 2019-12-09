@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    <PrayerScheduler v-bind:prayerTimes="this.prayerTimes.data" />
+    <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
   </div>
 </template>
 
 <script>
 const axios = require('axios');
-import PrayerScheduler from './components/PrayerScheduler'
 
 export default {
   name: 'app',
-  components: {
-    PrayerScheduler,
-  },
 
   data() {
     return {
+      location: 'Hamilton, New Zealand',
       prayerTimes: null,
     }
   },
@@ -26,7 +23,7 @@ export default {
 
   methods: {
     getPrayerTime() {
-      axios.get('https://api.aladhan.com/v1/calendarByAddress?address=Hamilton, New Zealand&method=2&month=12&year=2019')
+      axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + '&method=2&month=12&year=2019')
               .then((response) => {
                 this.prayerTimes = response.data;
                 console.log(this.prayerTimes);

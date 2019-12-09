@@ -10,6 +10,12 @@
     export default {
         props: ['prayerTimes'],
 
+        data() {
+          return {
+
+          }
+        },
+
         name: "PrayerScheduler"
     }
 </script>
