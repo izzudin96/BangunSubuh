@@ -1,11 +1,13 @@
 <template>
   <div id="app">
+    <h1>{{ currentTime }}</h1>
     <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
   </div>
 </template>
 
 <script>
 const axios = require('axios');
+const moment = require('moment');
 
 export default {
   name: 'app',
@@ -14,11 +16,13 @@ export default {
     return {
       location: 'Hamilton, New Zealand',
       prayerTimes: null,
+      currentTime: null,
     }
   },
 
   mounted() {
     this.getPrayerTime();
+    this.updateTime();
   },
 
   methods: {
@@ -32,6 +36,14 @@ export default {
                 console.log('retrying!');
                 this.getPrayerTime();
               });
+    },
+
+    setTime() {
+      this.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+    },
+
+    updateTime() {
+      setInterval(this.setTime, 1000);
     }
   },
 }
