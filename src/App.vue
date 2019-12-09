@@ -16,6 +16,7 @@ export default {
     return {
       location: 'Hamilton, New Zealand',
       prayerTimes: null,
+      todayPrayerTime: null,
       currentTime: null,
     }
   },
@@ -30,10 +31,11 @@ export default {
       axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + '&method=2&month=12&year=2019')
               .then((response) => {
                 this.prayerTimes = response.data['data'];
-                console.log(this.prayerTimes);
+              })
+              .then(() => {
+                console.log(this.prayerTimes[0]['timings']['Maghrib']);
               })
               .catch(() => {
-                console.log('retrying!');
                 this.getPrayerTime();
               });
     },
