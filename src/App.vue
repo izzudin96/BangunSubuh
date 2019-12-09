@@ -25,9 +25,13 @@ export default {
     getPrayerTime() {
       axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + '&method=2&month=12&year=2019')
               .then((response) => {
-                this.prayerTimes = response.data;
+                this.prayerTimes = response.data['data'];
                 console.log(this.prayerTimes);
               })
+              .catch(() => {
+                console.log('retrying!');
+                this.getPrayerTime();
+              });
     }
   },
 }
