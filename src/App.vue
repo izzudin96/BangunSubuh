@@ -1,37 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="What the hell"/>
+    <PrayerScheduler v-bind:prayerTimes="this.prayerTimes.data" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 const axios = require('axios');
+import PrayerScheduler from './components/PrayerScheduler'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    PrayerScheduler,
+  },
+
+  data() {
+    return {
+      prayerTimes: null,
+    }
   },
 
   mounted() {
-    axios.get('google.com').then(function() {
-      alert('hello again');
-    }).catch(function() {
-      alert('not hello');
-    });
-  }
+    this.getPrayerTime();
+  },
+
+  methods: {
+    getPrayerTime() {
+      axios.get('https://api.aladhan.com/v1/calendarByAddress?address=Hamilton, New Zealand&method=2&month=12&year=2019')
+              .then((response) => {
+                this.prayerTimes = response.data;
+                console.log(this.prayerTimes);
+              })
+    }
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
