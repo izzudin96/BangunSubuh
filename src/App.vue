@@ -2,6 +2,12 @@
   <div id="app">
     <h1>{{ displayTime }}</h1>
     <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
+    <hr>
+    <div>Subuh: {{ this.todayPrayerTime['Fajr'] }}</div>
+    <div>Zohor: {{ this.todayPrayerTime['Dhuhr'] }}</div>
+    <div>Asar: {{ this.todayPrayerTime['Fajr'] }}</div>
+    <div>Maghrib: {{ this.todayPrayerTime['Maghrib'] }}</div>
+    <div>Isyak: {{ this.todayPrayerTime['Isha'] }}</div>
   </div>
 </template>
 
