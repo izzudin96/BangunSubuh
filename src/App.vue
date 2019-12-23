@@ -3,11 +3,40 @@
         <h1>{{ displayTime }}</h1>
         <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
         <hr>
-        <div v-if="this.todayPrayerTimes">Subuh: {{ this.todayPrayerTimes['Fajr'] }} - {{ parseInt(prayerTimesCountdown['Fajr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Fajr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Fajr'].asSeconds())%60 }} second</div>
-        <div v-if="this.todayPrayerTimes">Zohor: {{ this.todayPrayerTimes['Dhuhr'] }} - {{ parseInt(prayerTimesCountdown['Dhuhr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Dhuhr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Dhuhr'].asSeconds())%60 }} second</div>
-        <div v-if="this.todayPrayerTimes">Asar: {{ this.todayPrayerTimes['Asr'] }} - {{ parseInt(prayerTimesCountdown['Asr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Asr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Asr'].asSeconds())%60 }} second</div>
-        <div v-if="this.todayPrayerTimes">Maghrib: {{ this.todayPrayerTimes['Maghrib'] }} - {{ parseInt(prayerTimesCountdown['Maghrib'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Maghrib'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Maghrib'].asSeconds())%60 }} second</div>
-        <div v-if="this.todayPrayerTimes">Isyak: {{ this.todayPrayerTimes['Isha'] }} - {{ parseInt(prayerTimesCountdown['Isha'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Isha'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Isha'].asSeconds())%60 }} second</div>
+        <div v-if="this.todayPrayerTimes">
+            Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Fajr']">
+                {{ parseInt(prayerTimesCountdown['Fajr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Fajr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Fajr'].asSeconds())%60 }} second
+            </span>
+        </div>
+
+        <div v-if="this.todayPrayerTimes">
+            Zohor: {{ this.todayPrayerTimes['Dhuhr'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Dhuhr']">
+                {{ parseInt(prayerTimesCountdown['Dhuhr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Dhuhr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Dhuhr'].asSeconds())%60 }} second
+            </span>
+        </div>
+
+        <div v-if="this.todayPrayerTimes">
+            Asar: {{ this.todayPrayerTimes['Asr'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Asr']">
+                {{ parseInt(prayerTimesCountdown['Asr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Asr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Asr'].asSeconds())%60 }} second
+            </span>
+        </div>
+
+        <div v-if="this.todayPrayerTimes">
+            Maghrib: {{ this.todayPrayerTimes['Maghrib'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Maghrib']">
+                {{ parseInt(prayerTimesCountdown['Maghrib'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Maghrib'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Maghrib'].asSeconds())%60 }} second
+            </span>
+        </div>
+
+        <div v-if="this.todayPrayerTimes">
+            Isyak: {{ this.todayPrayerTimes['Isha'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Isha']">
+                {{ parseInt(prayerTimesCountdown['Isha'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Isha'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Isha'].asSeconds())%60 }} second
+            </span>
+        </div>
     </div>
 </template>
 
@@ -86,7 +115,7 @@
             },
 
             setTime() {
-                this.currentTime = moment().subtract(10, 'hours'); // temp
+                this.currentTime = moment().subtract(11, 'hours'); // temp
             },
 
             updateTime() {
