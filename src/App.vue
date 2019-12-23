@@ -2,6 +2,7 @@
     <div id="app">
         <h1>{{ displayTime }}</h1>
         <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
+        <button @click.prevent="playAzan('/azan/UstazFahmiNahawandKurdi.mp3')">Play Azan</button>
         <hr>
         <div v-if="this.todayPrayerTimes">
             Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
@@ -120,7 +121,14 @@
 
             updateTime() {
                 setInterval(this.setTime, 1000);
-            }
+            },
+
+            playAzan(azan) {
+                if(azan) {
+                    var audio = new Audio(azan);
+                    audio.play();
+                }
+            },
         },
     }
 </script>
