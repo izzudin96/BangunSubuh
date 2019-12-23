@@ -115,7 +115,7 @@
             },
 
             setTime() {
-                this.currentTime = moment().subtract(11, 'hours'); // temp
+                this.currentTime = moment();
             },
 
             updateTime() {
