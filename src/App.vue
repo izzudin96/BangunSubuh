@@ -12,6 +12,13 @@
         </div>
 
         <div v-if="this.todayPrayerTimes">
+            Habis Waktu Subuh: {{ this.todayPrayerTimes['Sunrise'] }} -
+            <span v-if="this.currentTime < this.todayPrayerTimes['Sunrise']">
+                {{ parseInt(prayerTimesCountdown['Sunrise'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Sunrise'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Sunrise'].asSeconds())%60 }} second
+            </span>
+        </div>
+
+        <div v-if="this.todayPrayerTimes">
             Zohor: {{ this.todayPrayerTimes['Dhuhr'] }} -
             <span v-if="this.currentTime < this.todayPrayerTimes['Dhuhr']">
                 {{ parseInt(prayerTimesCountdown['Dhuhr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Dhuhr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Dhuhr'].asSeconds())%60 }} second
