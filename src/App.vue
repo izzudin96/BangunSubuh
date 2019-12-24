@@ -2,7 +2,7 @@
     <div id="app">
         <h1>{{ displayTime }}</h1>
         <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
-        <button @click.prevent="playAzan('/azan/UstazFahmiNahawandKurdi.mp3')">Play Azan</button>
+        <button @click="playAzan(azanPath)">Play Azan</button>
         <hr>
         <div v-if="this.todayPrayerTimes">
             Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
@@ -55,6 +55,7 @@
                 todayPrayerTimes: null,
                 tomorrowPrayerTimes: null,
                 currentTime: null,
+                azanPath: "/azan/UstazFahmiNahawandKurdi.mp3",
             }
         },
 
@@ -116,16 +117,35 @@
             },
 
             setTime() {
-                this.currentTime = moment();
+                this.currentTime = moment().subtract(125, 'minutes');
+                // this.currentTime = moment()
             },
 
             updateTime() {
                 setInterval(this.setTime, 1000);
+                setInterval(this.playAzanIfTimed, 1000);
+            },
+
+            playAzanIfTimed() {
+                let time = this.currentTime.format("HH:mm:ss");
+
+                if(time == this.todayPrayerTimes['Fajr'].format("HH:mm:ss")) {
+                    this.playAzan(this.azanPath);
+                } else if(time == this.todayPrayerTimes['Dhuhr'].format("HH:mm:ss")) {
+                    this.playAzan(this.azanPath);
+                } else if(time == this.todayPrayerTimes['Asr'].format("HH:mm:ss")) {
+                    this.playAzan(this.azanPath);
+                } else if(time == this.todayPrayerTimes['Maghrib'].format("HH:mm:ss")) {
+                    this.playAzan(this.azanPath);
+                } else if(time == this.todayPrayerTimes['Isha'].format("HH:mm:ss")) {
+                    this.playAzan(this.azanPath);
+                }
             },
 
             playAzan(azan) {
                 if(azan) {
-                    var audio = new Audio(azan);
+                    alert('Playing azan');
+                    let audio = new Audio(azan);
                     audio.play();
                 }
             },
