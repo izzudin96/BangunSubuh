@@ -117,8 +117,7 @@
             },
 
             setTime() {
-                this.currentTime = moment().subtract(125, 'minutes');
-                // this.currentTime = moment()
+                this.currentTime = moment();
             },
 
             updateTime() {
@@ -144,7 +143,6 @@
 
             playAzan(azan) {
                 if(azan) {
-                    alert('Playing azan');
                     let audio = new Audio(azan);
                     audio.play();
                 }
