@@ -2,7 +2,7 @@
     <div id="app">
         <h1>{{ displayTime }}</h1>
         <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
-        <button @click="playAzan(azanPath)">Play Azan</button>
+        <button @click="playAzan(azanPaths.AZAN1)">Play Azan</button>
         <hr>
         <div v-if="this.todayPrayerTimes">
             Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
@@ -52,6 +52,10 @@
     const axios = require('axios');
     const moment = require('moment');
 
+    const paths = {
+        AZAN1: "/azan/UstazFahmiNahawandKurdi.mp3",
+    };
+
     export default {
         name: 'app',
 
@@ -62,7 +66,7 @@
                 todayPrayerTimes: null,
                 tomorrowPrayerTimes: null,
                 currentTime: null,
-                azanPath: "/azan/UstazFahmiNahawandKurdi.mp3",
+                azanPaths: paths,
             }
         },
 
@@ -136,15 +140,15 @@
                 let time = this.currentTime.format("HH:mm:ss");
 
                 if(time == this.todayPrayerTimes['Fajr'].format("HH:mm:ss")) {
-                    this.playAzan(this.azanPath);
+                    this.playAzan(this.azanPaths.AZAN1);
                 } else if(time == this.todayPrayerTimes['Dhuhr'].format("HH:mm:ss")) {
-                    this.playAzan(this.azanPath);
+                    this.playAzan(this.azanPaths.AZAN1);
                 } else if(time == this.todayPrayerTimes['Asr'].format("HH:mm:ss")) {
-                    this.playAzan(this.azanPath);
+                    this.playAzan(this.azanPaths.AZAN1);
                 } else if(time == this.todayPrayerTimes['Maghrib'].format("HH:mm:ss")) {
-                    this.playAzan(this.azanPath);
+                    this.playAzan(this.azanPaths.AZAN1);
                 } else if(time == this.todayPrayerTimes['Isha'].format("HH:mm:ss")) {
-                    this.playAzan(this.azanPath);
+                    this.playAzan(this.azanPaths.AZAN1);
                 }
             },
 
