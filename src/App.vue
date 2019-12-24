@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h1>{{ displayTime }}</h1>
+        <h1 class="bg-blue">{{ displayTime }}</h1>
         <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
         <button @click="playAzan(azanPaths.AZAN1)">Play Azan</button>
         <hr>
@@ -51,6 +51,7 @@
 <script>
     const axios = require('axios');
     const moment = require('moment');
+    import '@/assets/css/main.css';
 
     const paths = {
         AZAN1: "/azan/UstazFahmiNahawandKurdi.mp3",
