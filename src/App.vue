@@ -224,22 +224,20 @@
         methods: {
             getPrayerTime(day, month, year) {
                 let method = 2;
-                let date = year+'-'+month+'-'+day;
 
                 axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + `&method=${method}&month=${month}&year=${year}`)
                     .then((response) => {
                         this.prayerTimes = response.data['data'];
                         this.todayPrayerTimes = this.prayerTimes[day - 1]['timings'];
-
-                        this.todayPrayerTimes['Asr'] = moment(date + ' ' + this.todayPrayerTimes['Asr']);
-                        this.todayPrayerTimes['Dhuhr'] = moment(date + ' ' + this.todayPrayerTimes['Dhuhr']);
-                        this.todayPrayerTimes['Fajr'] = moment(date + ' ' + this.todayPrayerTimes['Fajr']);
-                        this.todayPrayerTimes['Imsak'] = moment(date + ' ' + this.todayPrayerTimes['Imsak']);
-                        this.todayPrayerTimes['Isha'] = moment(date + ' ' + this.todayPrayerTimes['Isha']);
-                        this.todayPrayerTimes['Maghrib'] = moment(date + ' ' + this.todayPrayerTimes['Maghrib']);
-                        this.todayPrayerTimes['Midnight'] = moment(date + ' ' + this.todayPrayerTimes['Midnight']);
-                        this.todayPrayerTimes['Sunrise'] = moment(date + ' ' + this.todayPrayerTimes['Sunrise']);
-                        this.todayPrayerTimes['Sunset'] = moment(date + ' ' + this.todayPrayerTimes['Sunset']);
+                        this.todayPrayerTimes['Asr'] = moment(this.todayPrayerTimes['Asr'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Dhuhr'] = moment(this.todayPrayerTimes['Dhuhr'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Fajr'] = moment(this.todayPrayerTimes['Fajr'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Imsak'] = moment(this.todayPrayerTimes['Imsak'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Isha'] = moment(this.todayPrayerTimes['Isha'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Maghrib'] = moment(this.todayPrayerTimes['Maghrib'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Midnight'] = moment(this.todayPrayerTimes['Midnight'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Sunrise'] = moment(this.todayPrayerTimes['Sunrise'], "HH:mm").year(year).month(month - 1).date(day);
+                        this.todayPrayerTimes['Sunset'] = moment(this.todayPrayerTimes['Sunset'], "HH:mm").year(year).month(month - 1).date(day);
                     })
                     .catch(() => {
                         this.getPrayerTime();
