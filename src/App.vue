@@ -169,7 +169,7 @@
             },
 
             setTime() {
-                this.currentTime = moment();
+                this.currentTime = moment().add(416, 'minutes');
             },
 
             updateTime() {
@@ -191,6 +191,11 @@
                 } else if(time == this.todayPrayerTimes['Isha'].format("HH:mm:ss")) {
                     this.playAzan(this.azanPaths.AZAN1);
                     this.setTomorrowPrayerTimes();
+                } else {
+                    if(!this.isEndOfDay) {
+                        this.isEndOfDay = true;
+                        this.setTomorrowPrayerTimes();
+                    }
                 }
             },
 
