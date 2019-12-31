@@ -4,51 +4,84 @@
             <h1 class="text-center text-6xl">{{ displayTime }}</h1>
             <h2 class="text-center text-3xl">{{ displayDate }}</h2>
         </div>
-        <div class="flex items-center">
+        <div class="flex justify-center">
             <input class="shadow appearance-none border rounded w-64 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
         </div>
 
-        <hr>
-        <div v-if="this.todayPrayerTimes">
-            Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
-            <span v-if="fajrShow">
-                {{ parseInt(prayerTimesCountdown['Fajr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Fajr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Fajr'].asSeconds())%60 }} second
-            </span>
+        <div v-if="this.todayPrayerTimes" class="flex justify-between">
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Subuh
+                </div>
+                <div class="text-4xl text-center">
+                    {{ fajrTime }}
+                </div>
+                <div class="text-xl text-center" v-if="fajrShow">
+                    {{ fajrCountdown }}
+                </div>
+            </div>
+
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Subuh Habis
+                </div>
+                <div class="text-4xl text-center">
+                    {{ sunriseTime }}
+                </div>
+                <div class="text-xl text-center" v-if="sunriseShow">
+                    {{ sunriseCountdown }}
+                </div>
+            </div>
+
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Zohor
+                </div>
+                <div class="text-4xl text-center">
+                    {{ dhuhrTime }}
+                </div>
+                <div class="text-xl text-center" v-if="dhuhrShow">
+                    {{ dhuhrCountdown }}
+                </div>
+            </div>
         </div>
 
-        <div v-if="this.todayPrayerTimes">
-            Habis Waktu Subuh: {{ this.todayPrayerTimes['Sunrise'] }} -
-            <span v-if="sunriseShow">
-                {{ parseInt(prayerTimesCountdown['Sunrise'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Sunrise'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Sunrise'].asSeconds())%60 }} second
-            </span>
-        </div>
+        <div v-if="this.todayPrayerTimes" class="flex justify-between">
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Asar
+                </div>
+                <div class="text-4xl text-center">
+                    {{ asrTime }}
+                </div>
+                <div class="text-xl text-center" v-if="asrShow">
+                    {{ asrCountdown }}
+                </div>
+            </div>
 
-        <div v-if="this.todayPrayerTimes">
-            Zohor: {{ this.todayPrayerTimes['Dhuhr'] }} -
-            <span v-if="dhuhrShow">
-                {{ parseInt(prayerTimesCountdown['Dhuhr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Dhuhr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Dhuhr'].asSeconds())%60 }} second
-            </span>
-        </div>
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Maghrib
+                </div>
+                <div class="text-4xl text-center">
+                    {{ maghribTime }}
+                </div>
+                <div class="text-xl text-center" v-if="maghribShow">
+                    {{ maghribCountdown }}
+                </div>
+            </div>
 
-        <div v-if="this.todayPrayerTimes">
-            Asar: {{ this.todayPrayerTimes['Asr'] }} -
-            <span v-if="asrShow">
-                {{ parseInt(prayerTimesCountdown['Asr'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Asr'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Asr'].asSeconds())%60 }} second
-            </span>
-        </div>
-
-        <div v-if="this.todayPrayerTimes">
-            Maghrib: {{ this.todayPrayerTimes['Maghrib'] }} -
-            <span v-if="maghribShow">
-                {{ parseInt(prayerTimesCountdown['Maghrib'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Maghrib'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Maghrib'].asSeconds())%60 }} second
-            </span>
-        </div>
-
-        <div v-if="this.todayPrayerTimes">
-            Isyak: {{ this.todayPrayerTimes['Isha'] }} -
-            <span v-if="ishaShow">
-                {{ parseInt(prayerTimesCountdown['Isha'].asHours()) }} hours {{ parseInt(prayerTimesCountdown['Isha'].asMinutes())%60 }} minutes and {{ parseInt(prayerTimesCountdown['Isha'].asSeconds())%60 }} second
-            </span>
+            <div class="flex-col p-10">
+                <div class="text-5xl text-center">
+                    Isha'
+                </div>
+                <div class="text-4xl text-center">
+                    {{ ishaTime }}
+                </div>
+                <div class="text-xl text-center" v-if="ishaShow">
+                    {{ ishaCountdown }}
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -78,11 +111,11 @@
 
         computed: {
             displayTime: function () {
-                return moment(this.currentTime).format('h:mm:ss a')
+                return moment(this.currentTime).format('h:mm:ss a');
             },
 
             displayDate: function () {
-                return moment(this.currentTime).format('MMMM Do YYYY')
+                return moment(this.currentTime).format('MMMM Do YYYY');
             },
 
             fajrShow: function() {
@@ -107,6 +140,54 @@
 
             ishaShow: function() {
                 return this.currentTime.isBefore(this.todayPrayerTimes['Isha']) || this.isEndOfDay;
+            },
+
+            fajrTime: function() {
+                return this.todayPrayerTimes['Fajr'].format('h:mm:ss a');
+            },
+
+            sunriseTime: function() {
+                return this.todayPrayerTimes['Sunrise'].format('h:mm:ss a');
+            },
+
+            dhuhrTime: function() {
+                return this.todayPrayerTimes['Dhuhr'].format('h:mm:ss a');
+            },
+
+            asrTime: function() {
+                return this.todayPrayerTimes['Asr'].format('h:mm:ss a');
+            },
+
+            maghribTime: function() {
+                return this.todayPrayerTimes['Maghrib'].format('h:mm:ss a');
+            },
+
+            ishaTime: function() {
+                return this.todayPrayerTimes['Isha'].format('h:mm:ss a');
+            },
+
+            fajrCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Fajr'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Fajr'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Fajr'].asSeconds())%60 + " seconds";
+            },
+
+            sunriseCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Sunrise'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Sunrise'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Sunrise'].asSeconds())%60 + " seconds";
+            },
+
+            dhuhrCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Dhuhr'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Dhuhr'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Dhuhr'].asSeconds())%60 + " seconds";
+            },
+
+            asrCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Asr'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Asr'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Asr'].asSeconds())%60 + " seconds";
+            },
+
+            maghribCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Maghrib'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Maghrib'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Maghrib'].asSeconds())%60 + " seconds";
+            },
+
+            ishaCountdown: function() {
+                return parseInt(this.prayerTimesCountdown['Isha'].asHours()) + " hours " + parseInt(this.prayerTimesCountdown['Isha'].asMinutes())%60 + " minutes and " + parseInt(this.prayerTimesCountdown['Isha'].asSeconds())%60 + " seconds";
             },
 
             prayerTimesCountdown: function() {
@@ -174,7 +255,7 @@
             },
 
             setTime() {
-                this.currentTime = moment().add(257, 'minutes');
+                this.currentTime = moment();
             },
 
             updateTime() {
