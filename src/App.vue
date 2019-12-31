@@ -1,8 +1,13 @@
 <template>
-    <div id="app">
-        <h1>{{ displayTime }}</h1>
-        <input v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
-        <button @click="playAzan(azanPaths.AZAN1)">Play Azan</button>
+    <div id="app" class="container mx-auto">
+        <div class="flex-row">
+            <h1 class="text-center text-6xl">{{ displayTime }}</h1>
+            <h2 class="text-center text-3xl">{{ displayDate }}</h2>
+        </div>
+        <div class="flex items-center">
+            <input class="shadow appearance-none border rounded w-64 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
+        </div>
+
         <hr>
         <div v-if="this.todayPrayerTimes">
             Subuh: {{ this.todayPrayerTimes['Fajr'] }} -
@@ -73,7 +78,11 @@
 
         computed: {
             displayTime: function () {
-                return moment(this.currentTime).format('MMMM Do YYYY, h:mm:ss a')
+                return moment(this.currentTime).format('h:mm:ss a')
+            },
+
+            displayDate: function () {
+                return moment(this.currentTime).format('MMMM Do YYYY')
             },
 
             fajrShow: function() {
@@ -165,7 +174,7 @@
             },
 
             setTime() {
-                this.currentTime = moment().add(416, 'minutes');
+                this.currentTime = moment().add(257, 'minutes');
             },
 
             updateTime() {
@@ -177,6 +186,7 @@
                 let time = this.currentTime.format("HH:mm:ss");
 
                 if(time == this.todayPrayerTimes['Fajr'].format("HH:mm:ss")) {
+                    this.isEndOfDay = false;
                     this.playAzan(this.azanPaths.AZAN1);
                 } else if(time == this.todayPrayerTimes['Dhuhr'].format("HH:mm:ss")) {
                     this.playAzan(this.azanPaths.AZAN1);
@@ -187,11 +197,8 @@
                 } else if(time == this.todayPrayerTimes['Isha'].format("HH:mm:ss")) {
                     this.playAzan(this.azanPaths.AZAN1);
                     this.setTomorrowPrayerTimes();
-                } else {
-                    if(!this.isEndOfDay) {
-                        this.isEndOfDay = true;
-                        this.setTomorrowPrayerTimes();
-                    }
+                } else if(this.currentTime.isAfter(this.todayPrayerTimes['Isha']) && !this.isEndOfDay) {
+                    this.setTomorrowPrayerTimes();
                 }
             },
 
