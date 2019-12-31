@@ -136,10 +136,6 @@
                 let method = 2;
                 let date = year+'-'+month+'-'+day;
 
-                if(this.isEndOfDay) {
-                    alert("Day: " + day + " Month: " + month + " Year: " + year);
-                }
-
                 axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + `&method=${method}&month=${month}&year=${year}`)
                     .then((response) => {
                         this.prayerTimes = response.data['data'];
