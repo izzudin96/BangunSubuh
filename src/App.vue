@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="container mx-auto">
+    <div id="app" class="container mx-auto text-white">
         <div class="flex-row">
             <h1 class="text-center text-6xl">{{ displayTime }}</h1>
             <h2 class="text-center text-3xl">{{ displayDate }}</h2>
@@ -8,8 +8,8 @@
             <input class="shadow appearance-none border rounded w-64 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
         </div>
 
-        <div v-if="this.todayPrayerTimes" class="flex justify-between">
-            <div class="flex-col p-10">
+        <div v-if="this.todayPrayerTimes" class="flex space-around justify-center">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Subuh
                 </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="flex-col p-10">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Subuh Habis
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="flex-col p-10">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Zohor
                 </div>
@@ -46,8 +46,8 @@
             </div>
         </div>
 
-        <div v-if="this.todayPrayerTimes" class="flex justify-between">
-            <div class="flex-col p-10">
+        <div v-if="this.todayPrayerTimes" class="flex space-around justify-center">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Asar
                 </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="flex-col p-10">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Maghrib
                 </div>
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="flex-col p-10">
+            <div class="flex-col p-10 w-1/3">
                 <div class="text-5xl text-center">
                     Isha'
                 </div>
