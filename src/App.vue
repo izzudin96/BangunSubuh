@@ -7,6 +7,9 @@
         <div class="flex justify-center">
             <input class="shadow appearance-none border rounded w-64 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-on:keyup.enter="getPrayerTime" v-model="location" type="text">
         </div>
+        <div class="flex justify-center p-5">
+            <button @click="playAzan(azanPaths.AZAN1)">Play Azan</button>
+        </div>
 
         <div v-if="this.todayPrayerTimes" class="flex space-around justify-center">
             <div class="flex-col p-10 w-1/3">
