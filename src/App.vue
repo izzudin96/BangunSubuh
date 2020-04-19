@@ -95,7 +95,7 @@
     import '@/assets/css/main.css';
 
     const paths = {
-        AZAN1: "/azan/UstazFahmiNahawandKurdi.mp3",
+        AZAN1: "/azan/Azan2020.mp3",
     };
 
     export default {
