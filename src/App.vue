@@ -233,7 +233,7 @@
 
     methods: {
       getPrayerTime(day, month, year) {
-        let method = 2;
+        let method = 3;
 
         axios.get('https://api.aladhan.com/v1/calendarByAddress?address=' + this.location + `&method=${method}&month=${month}&year=${year}`)
           .then((response) => {
